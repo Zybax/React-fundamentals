@@ -2,6 +2,54 @@ import React, { Component } from 'react';
 import queryString from 'query-string';
 import api from '../utils/api';
 import ReactRouter, { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import PlayerPreview from './PlayerPreview'
+
+
+
+const Profile = (props) => {
+  const info = props.info;
+  return(
+      <PlayerPreview 
+      avatar={info.avatar_url}
+      username={info.login}>
+
+       {info.name && <li>{info.name}</li>}
+        {info.location && <li>{info.location}</li>}
+        {info.company && <li>{info.company}</li>}
+        <li>Followers: {info.followers}</li>
+        <li>Following: {info.following}</li>
+        <li>Public Repos: {info.public_repos}</li>
+      {info.blog && <li><a href={info.blog}>{info.blog}</a></li>}
+
+      </PlayerPreview>
+  )
+}
+
+
+const Player = (props) => {
+    return(
+        <div>
+          <h1 className='header'>
+              {props.label}
+          </h1>
+          <h3  style={{textAlign:'center'}}>
+             Score: {props.score}
+          </h3>
+          <Profile info={
+            props.profile
+          }/>
+        </div>
+    )
+}
+
+Player.PropTypes ={
+  score: PropTypes.number.isRequired,
+  profile: PropTypes.string.isRequired,
+  label: PropTypes.object.isRequired
+
+}
+
 
 class Results extends Component {
   constructor(props) {
@@ -34,7 +82,7 @@ class Results extends Component {
 
       this.setState(() => {
         return{
-          error:'null',
+          error:null,
           winner:players[0],
           loser:players[1],
           loading:false
@@ -65,9 +113,22 @@ class Results extends Component {
 
 
     return (
-      <div>
-        {JSON.stringify(this.state,null,2)}
-      </div>
+      <div className='row'>
+        <Player
+        label='Winner'
+        score={winner.score}
+        profile={winner.profile}> 
+        
+        </Player>
+
+
+       <Player
+       label='Loser'
+       score={loser.score}
+       profile={loser.profile}> 
+       
+       </Player>
+     </div>
     )
   }
 }
