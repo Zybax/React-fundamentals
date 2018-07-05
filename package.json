@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.18.0",
+    "firebase": "^5.2.0",
     "prop-types": "^15.6.1",
     "query-string": "^6.1.0",
     "react": "^16.4.1",
@@ -25,7 +26,10 @@
   },
   "scripts": {
     "create": "webpack",
-    "start": "webpack-dev-server --open --port 3000  --mode development"
+    "start": "webpack-dev-server --open --port 3000  --mode development",
+    "build": "webpack --mode production",
+    "deploy": "npm run build && firebase deploy",
+    "firebase-init": "firebase-login && firebase init"
   },
   "babel": {
     "presets": [

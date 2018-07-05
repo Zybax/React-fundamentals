@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 const api = require('../utils/api');
+import Loading from './Loading';
 
 // MENU COMPONENT
 
@@ -24,7 +25,7 @@ const SelectLanguage = (props) => {
 }
 
 SelectLanguage.propTypes = {
-     selectedLanguage: PropTypes.string.isRequired,
+     selectedLanguage: PropTypes.string,
      onSelect: PropTypes.func.isRequired
 }
 
@@ -120,7 +121,7 @@ updateLanguage(lang){
             onSelect={this.updateLanguage} />
             
             {!this.state.repos 
-            ? <p>LOADING... </p>
+            ? <Loading></Loading>
             : <RepoGrid repos={this.state.repos} /> } 
         </div>
     )

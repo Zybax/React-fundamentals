@@ -11,7 +11,7 @@ const PlayerPreview = (props) => {
                 alt={'Avatar for ' + props.username}/>
 
                 <h2 className='username'>@{props.username}</h2>
-
+                
                
             </div>
             {props.children}
